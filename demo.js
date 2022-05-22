@@ -1,5 +1,6 @@
 // const { default: Web3 } = require("web3")
 
+const { default: BigNumber } = require("bignumber.js");
 let Web3 = require("web3");
 // console.log(new Web3.providers.HttpProvider("HTTP://127.0.0.1:7545"))
 web3 = new Web3(new Web3.providers.HttpProvider("HTTP://127.0.0.1:7545"));
@@ -55,65 +56,87 @@ stackoverflow解释：只有在 promise 成功解决（需要一个函数调用�
 
 //web3批处理请求
 
-var abi = [
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_number",
-				"type": "uint256"
-			}
-		],
-		"name": "setNumber",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getNumber",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-]
+// var abi = [
+// 	{
+// 		"inputs": [
+// 			{
+// 				"internalType": "uint256",
+// 				"name": "_number",
+// 				"type": "uint256"
+// 			}
+// 		],
+// 		"name": "setNumber",
+// 		"outputs": [],
+// 		"stateMutability": "nonpayable",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [],
+// 		"name": "getNumber",
+// 		"outputs": [
+// 			{
+// 				"internalType": "uint256",
+// 				"name": "",
+// 				"type": "uint256"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	}
+// ]
 //0xd5c96C0076b15f92c53a45563b0616433721FB1A
-var address = '0xd5c96C0076b15f92c53a45563b0616433721FB1A';
-var contract = new web3.eth.Contract(abi,address)
+// var address = '0xd5c96C0076b15f92c53a45563b0616433721FB1A';
+// var contract = new web3.eth.Contract(abi,address)
 
-function callback() {
-  console.log("callback run")
-}
+// function callback() {
+//   console.log("callback run")
+// }
 
-function callback2() {
-  console.log("callback2 run")
-}
+// function callback2() {
+//   console.log("callback2 run")
+// }
 
 
 //创建批量请求对象
-var batch = new web3.BatchRequest()
+// var batch = new web3.BatchRequest()
 //获取用户的账户信息
-batch.add(web3.eth.getBalance.request("0xDc4DD795Bc3198f2F86CAa2024F8f5f662a79653","latest",callback));
+// batch.add(web3.eth.getBalance.request("0xDc4DD795Bc3198f2F86CAa2024F8f5f662a79653","latest",callback));
 
 //获取账户
-batch.add(web3.eth.getBalance.request("0xDc4DD795Bc3198f2F86CAa2024F8f5f662a79653","latest",function(error, result){
-  console.log(error)
-  console.log(result)
-}));
+// batch.add(web3.eth.getBalance.request("0xDc4DD795Bc3198f2F86CAa2024F8f5f662a79653","latest",function(error, result){
+//   console.log(error)
+//   console.log(result)
+// }));
 
 
 //对合约操作
-batch.add(contract.methods.getNumber().call.request({from:'0xDc4DD795Bc3198f2F86CAa2024F8f5f662a79653'},callback2))
+// batch.add(contract.methods.getNumber().call.request({from:'0xDc4DD795Bc3198f2F86CAa2024F8f5f662a79653'},callback2))
 
-batch.add(contract.methods.getNumber().call.request({from:'0xDc4DD795Bc3198f2F86CAa2024F8f5f662a79653'},function(error,result){
-  console.log(error)
-  console.log(result)
+// batch.add(contract.methods.getNumber().call.request({from:'0xDc4DD795Bc3198f2F86CAa2024F8f5f662a79653'},function(error,result){
+//   console.log(error)
+//   console.log(result)
 
-}))
-batch.execute()
+// }))
+// batch.execute()
+
+// var a = 12313213213213213123132132132
+// console.log(a)
+
+//对大值数据，为避免数据精度丢失，使用BigNumber
+
+var balance = new BigNumber("87945123548794132156749812313")
+console.log(balance)
+
+console.log(balance.toString())//显示为科学计数法
+
+console.log(balance.toString(2))//按照二进制显示
+console.log(balance.toString(10))//按照十进制显示
+console.log(balance.toString(16))//按照十六进制显示
+
+//若为浮点数/小数，则最多只能保留20位
+console.log(new BigNumber("87945123548794132156749812313.012345678901234567899").toString(10))
+
+//检查参数是否是BigNumber数
+console.log(web3.utils.isBigNumber(balance))
+
+console.log(web3.utils.isBigNumber(10))
