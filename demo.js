@@ -159,3 +159,40 @@ stackoverflow解释：只有在 promise 成功解决（需要一个函数调用�
 // console.log(web3.utils.toWei('1','finney'))
 // console.log(web3.utils.toWei('1','szabo'))
 // console.log(web3.utils.toWei('1','shannon'))
+
+//将任意给定值转换为16进制字符串。数值字符串将解释为数值，文本字符串将解释为utf-8字符串
+//web3.utils.toHex(mixed)
+
+// console.log(web3.utils.toHex('234'))
+// console.log(web3.utils.toHex(234))
+// console.log(web3.utils.toHex(new BigNumber('234')))
+
+// console.log(web3.utils.toHex("张三"))
+// console.log(web3.utils.toHex('abcdef'))
+
+
+//将给定的16进制字符串转化为数值字符串
+//web3.utils.hexToNumberString(hex)
+// console.log(web3.utils.hexToNumberString('0xea'))//转换为字符串类型
+// console.log(web3.utils.hexToNumber('0xea'))//转换为数值类型
+
+//将数字转换为16进制
+//web3.utils.numberToHex(number)
+
+//返回指定16进制值的utf-8字符串表示
+//web3.utils.hexToUtf8(hex)
+
+//返回指定16进制值的ASCII字符串表示
+//web3.utils.hexToAscii(hex)
+
+//返回指定UTF-8字符串的16进制表示
+//web3.utils.utf8ToHex(string)
+
+//返回指定ASCII字符串的16进制表示
+//web3.utils.asciiToHex(string)
+
+//返回指定16进制字符串的字节数组表示
+//web3.utils.hexToBytes(hex)
+
+//返回由字节数组转的16进制数值
+//web3.utils.bytesToHex(byteArray)
