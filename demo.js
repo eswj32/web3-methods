@@ -1,5 +1,6 @@
 // const { default: Web3 } = require("web3")
 
+const { number } = require("assert-plus");
 const { default: BigNumber } = require("bignumber.js");
 let Web3 = require("web3");
 // console.log(new Web3.providers.HttpProvider("HTTP://127.0.0.1:7545"))
@@ -124,19 +125,37 @@ stackoverflow解释：只有在 promise 成功解决（需要一个函数调用�
 
 //对大值数据，为避免数据精度丢失，使用BigNumber
 
-var balance = new BigNumber("87945123548794132156749812313")
-console.log(balance)
+// var balance = new BigNumber("87945123548794132156749812313")
+// console.log(balance)
 
-console.log(balance.toString())//显示为科学计数法
+// console.log(balance.toString())//显示为科学计数法
 
-console.log(balance.toString(2))//按照二进制显示
-console.log(balance.toString(10))//按照十进制显示
-console.log(balance.toString(16))//按照十六进制显示
+// console.log(balance.toString(2))//按照二进制显示
+// console.log(balance.toString(10))//按照十进制显示
+// console.log(balance.toString(16))//按照十六进制显示
 
 //若为浮点数/小数，则最多只能保留20位
-console.log(new BigNumber("87945123548794132156749812313.012345678901234567899").toString(10))
+// console.log(new BigNumber("87945123548794132156749812313.012345678901234567899").toString(10))
 
 //检查参数是否是BigNumber数
-console.log(web3.utils.isBigNumber(balance))
+// console.log(web3.utils.isBigNumber(balance))
 
-console.log(web3.utils.isBigNumber(10))
+// console.log(web3.utils.isBigNumber(10))
+
+//将给定的以wei为单位的值转换为其他单位的数值
+//wei是最小的以太单位，应当总是使用wei进行计算，仅在需要显示时进行转换
+
+//方法
+// web3.utils.fromWei(number,[unit])
+//number(需要转换的数字，一般是字符串代表的数字)
+// console.log(web3.utils.fromWei('1','ether'))
+// console.log(web3.utils.fromWei('1','finney'))
+// console.log(web3.utils.fromWei('1','szabo'))
+// console.log(web3.utils.fromWei('1','shannon'))
+
+//将给定的以太金额转换为以wei为单位的数值
+//web3.utils.toWei(number,[,unit])
+// console.log(web3.utils.toWei('1','ether'))
+// console.log(web3.utils.toWei('1','finney'))
+// console.log(web3.utils.toWei('1','szabo'))
+// console.log(web3.utils.toWei('1','shannon'))
